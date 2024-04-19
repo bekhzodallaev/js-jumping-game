@@ -1,68 +1,16 @@
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Courier New", Courier, monospace;
 }
-
-.canvas
-{
-  width: 100%;
-  height: 600px;
-  position: relative;
+body {
+  text-align: center;
 }
-
-.background
-{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url("../assets/dinoBackground.png");
-  background-size: auto 100%;
-  animation: animatedBackground 50s linear infinite;
+#board {
+  background-color: lightgray;
+  border-bottom: 2px solid #000;
 }
-
-.background img
-{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.player
-{
-  background-color: red;
-  width: 70px;
-  height: 70px;
-  position: absolute;
-  bottom: 302px;
-  left: 80px;
-}
-
-.playerJump
-{
-  animation: playerJump 1s linear;
-}
-
-@keyframes playerJump {
-  0%
-  {
-    bottom: 302px;
-  }
-  50%
-  {
-    bottom: 500px;
-  }
-}
-
-@keyframes animatedBackground {
-  from
-  {
-    background-position: 0 0;
-  }
-
-  to
-  {
-    background-position: -20000px 0;
-  }
+h1 {
+  margin: 2rem;
 }
