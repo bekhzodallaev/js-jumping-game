@@ -2,7 +2,7 @@
 let board;
 let boardWidth = 750; // Width of the game board
 let boardHeight = 250; // Height of the game board
-let context;
+export let context;
 
 // Dinosaur properties
 let dinoWidth = 88; // Width of the dinosaur
@@ -10,7 +10,7 @@ let dinoHeight = 94; // Height of the dinosaur
 let dinoX = 50; // Initial X position of the dinosaur
 let dinoY = boardHeight - dinoHeight; // Initial Y position of the dinosaur
 let dinoImg; // Image object for the dinosaur
-let dino = {
+export let dino = {
   x: dinoX,
   y: dinoY,
   width: dinoWidth,
@@ -177,3 +177,17 @@ function checkCollision(a, b) {
     a.y + a.height > b.y
   );
 }
+
+function pressSpace(e) {
+  console.log(e);
+  const btnType = e.code;
+
+  if (btnType === "Space") {
+
+  }
+}
+
+function init() {
+  document.addEventListener("keydown", pressSpace);
+}
+init();
