@@ -6,7 +6,7 @@ let board;
 let boardWidth = 750; // Width of the game board
 let boardHeight = 250; // Height of the game board
 export let context;
-let scoreText = "Hi " + dinosaurData.highestScore;
+let scoreText = "HI " + dinosaurData.highestScore;
 
 // Dinosaur properties
 let dinoWidth = 88; // Width of the dinosaur
