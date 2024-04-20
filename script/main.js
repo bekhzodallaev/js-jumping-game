@@ -1,3 +1,5 @@
+import { siteJumpSound, siteDeathSound, sitePointsound } from "./soundEffect.js";
+
 // Initialize variables for the game board, dinosaur, cacti, and game parameters
 let board;
 let boardWidth = 750; // Width of the game board
@@ -72,6 +74,7 @@ window.onload = function () {
   setInterval(placeCactus, 1000);
   // Listen for key events to control the dinosaur
   document.addEventListener("keydown", moveDino);
+  document.addEventListener("keydown", soundEffect);
 };
 
 // Main game loop
@@ -134,6 +137,11 @@ function moveDino(e) {
     velocityY = 0; // Reset vertical velocity
     gravity = 0.4; // Reset gravity
   }
+}
+function soundEffect(e) {
+  this.value = 0.5;
+  if (e.code === "Space" || e.code === "ArrowUp")
+    siteJumpSound.play();
 }
 
 // Function to place cacti on the game board
