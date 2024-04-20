@@ -139,8 +139,7 @@ function moveDino(e) {
   }
 }
 function soundEffect(e) {
-  this.value = 0.5;
-  if (e.code === "Space" || e.code === "ArrowUp")
+  if (e.code === "Space" || e.code == "ArrowUp")
     siteJumpSound.play();
 }
 
