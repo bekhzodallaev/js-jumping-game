@@ -1,10 +1,12 @@
 import { siteJumpSound, siteDeathSound, sitePointsound } from "./soundEffect.js";
+import { dinosaurData } from "./dataScores.js";
 
 // Initialize variables for the game board, dinosaur, cacti, and game parameters
 let board;
 let boardWidth = 750; // Width of the game board
 let boardHeight = 250; // Height of the game board
 export let context;
+let scoreText = "Hi " + dinosaurData.highestScore;
 
 // Dinosaur properties
 let dinoWidth = 88; // Width of the dinosaur
@@ -120,7 +122,8 @@ function update() {
   context.fillStyle = "black";
   context.font = "20px courier";
   score++;
-  context.fillText(score, 10, 20);
+  context.fillText(score, 680, 20);
+  context.fillText(scoreText, 600, 20);
 }
 
 // Function to move the dinosaur
