@@ -30,6 +30,7 @@ let cactusY = boardHeight - cactusHeight; // Y position of the cacti
 let cactus1Img; // Image object for the first type of cactus
 let cactus2Img; // Image object for the second type of cactus
 let cactus3Img; // Image object for the third type of cactus
+let land;
 
 // Game physics
 let velocityX = -8; // Horizontal velocity of the game objects
@@ -139,8 +140,7 @@ function moveDino(e) {
   }
 }
 function soundEffect(e) {
-  this.value = 0.5;
-  if (e.code === "Space" || e.code === "ArrowUp")
+  if (e.code === "Space" || e.code == "ArrowUp")
     siteJumpSound.play();
 }
 

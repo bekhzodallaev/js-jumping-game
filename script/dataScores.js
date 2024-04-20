@@ -6,5 +6,6 @@ const dinosaurData = {
         stageThreeScore: 1200,
         stageFourScore: 1800,
         stageFiveScore: 2400,
-    }
+    },
+    highestScore: 0,
 };
