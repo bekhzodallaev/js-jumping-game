@@ -1,8 +1,12 @@
+import { siteJumpSound, siteDeathSound, sitePointsound } from "./soundEffect.js";
+import { dinosaurData } from "./dataScores.js";
+
 // Initialize variables for the game board, dinosaur, cacti, and game parameters
 let board;
 let boardWidth = 750; // Width of the game board
 let boardHeight = 250; // Height of the game board
-let context;
+export let context;
+let scoreText = "HI " + dinosaurData.highestScore;
 
 // Dinosaur properties
 let dinoWidth = 88; // Width of the dinosaur
@@ -10,7 +14,7 @@ let dinoHeight = 94; // Height of the dinosaur
 let dinoX = 50; // Initial X position of the dinosaur
 let dinoY = boardHeight - dinoHeight; // Initial Y position of the dinosaur
 let dinoImg; // Image object for the dinosaur
-let dino = {
+export let dino = {
   x: dinoX,
   y: dinoY,
   width: dinoWidth,
@@ -28,6 +32,7 @@ let cactusY = boardHeight - cactusHeight; // Y position of the cacti
 let cactus1Img; // Image object for the first type of cactus
 let cactus2Img; // Image object for the second type of cactus
 let cactus3Img; // Image object for the third type of cactus
+let land;
 
 // Game physics
 let velocityX = -8; // Horizontal velocity of the game objects
@@ -72,6 +77,7 @@ window.onload = function () {
   setInterval(placeCactus, 1000);
   // Listen for key events to control the dinosaur
   document.addEventListener("keydown", moveDino);
+  document.addEventListener("keydown", soundEffect);
 };
 
 // Main game loop
@@ -116,7 +122,8 @@ function update() {
   context.fillStyle = "black";
   context.font = "20px courier";
   score++;
-  context.fillText(score, 10, 20);
+  context.fillText(score, 680, 20);
+  context.fillText(scoreText, 600, 20);
 }
 
 // Function to move the dinosaur
@@ -134,6 +141,10 @@ function moveDino(e) {
     velocityY = 0; // Reset vertical velocity
     gravity = 0.4; // Reset gravity
   }
+}
+function soundEffect(e) {
+  if (e.code === "Space" || e.code == "ArrowUp")
+    siteJumpSound.play();
 }
 
 // Function to place cacti on the game board
@@ -177,3 +188,17 @@ function checkCollision(a, b) {
     a.y + a.height > b.y
   );
 }
+
+function pressSpace(e) {
+  console.log(e);
+  const btnType = e.code;
+
+  if (btnType === "Space") {
+
+  }
+}
+
+function init() {
+  document.addEventListener("keydown", pressSpace);
+}
+init();
