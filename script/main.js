@@ -37,8 +37,8 @@ let gravity = 0.4; // Gravity effect
 // Game state
 let gameOver = false; // Flag to indicate if the game is over
 let score = 0; // Player's score
-
-// Load game assets and start game loop
+let gameOverImg = new Image();
+gameOverImg.src = "./assets/game-over.png"; // Load game assets and start game loop
 window.onload = function () {
   // Get the game canvas element
   board = document.getElementById("board");
@@ -78,6 +78,7 @@ window.onload = function () {
 function update() {
   requestAnimationFrame(update);
   if (gameOver) {
+    context.drawImage(gameOverImg, 200, 100);
     return;
   }
   // Clear the canvas
