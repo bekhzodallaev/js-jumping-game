@@ -1,5 +1,5 @@
 let stage = "";
-const dinosaurData = {
+export const dinosaurData = {
     scores: {
         stageOneScore: 0,
         stageTwoScore: 600,
