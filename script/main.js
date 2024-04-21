@@ -118,6 +118,7 @@ function update() {
     if (checkCollision(dino, cactus)) {
       gameOver = true;
       siteDeathSound.play();
+      siteBackground.pause();
       dinoImg.src = "./assets/dino-dead.png";
       dinoImg.onload = function () {
         context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
@@ -216,6 +217,7 @@ function checkCollision(a, b) {
   );
 }
 
+<<<<<<< HEAD
 // Function to handle space key press
 function pressSpace(e) {
   const btnType = e.code;
@@ -231,6 +233,9 @@ function init() {
 init();
 
 let gameStarted = false;
+=======
+let gameStarted = false; // Flag to track whether the game has started
+>>>>>>> d06960ed4e2596cf3cc12279b65bf96d0fe3942f
 
 // Function to start the game
 function startGame() {
@@ -267,6 +272,7 @@ function resetGame() {
   dino.y = dinoY;
   dinoImg.src = "./assets/dino-stationary.png";
   successfulJumps = 0;
+  siteBackground.play();
 
   cactusArr = [];
 }
