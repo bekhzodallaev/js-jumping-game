@@ -1,21 +1,37 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: "Courier New", Courier, monospace;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   text-align: center;
+  background-color: #0000006f;
 }
 
 #board {
   background-color: lightgray;
-  border: 1px solid #000;
   border-bottom: 2px solid #000;
-
 }
 
 h1 {
   margin: 2rem;
+}
+h2 {
+  animation: textAnimation 2s infinite;
+  margin-bottom: 2rem;
+  display: inline-block;
+  color: rgb(156, 36, 36);
+}
+@keyframes textAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
