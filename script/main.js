@@ -128,6 +128,7 @@ function update() {
       gameOver = true;
       // Change dinosaur image to dead state
       siteDeathSound.play();
+      siteBackground.pause();
       dinoImg.src = "./assets/dino-dead.png";
       dinoImg.onload = function () {
         context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
@@ -263,6 +264,7 @@ function resetGame() {
   dino.y = dinoY;
   dinoImg.src = "./assets/dino-stationary.png";
   successfullJumps = 0;
+  siteBackground.play();
 
   cactusArr = [];
 }
