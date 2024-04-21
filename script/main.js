@@ -1,3 +1,4 @@
+// Imports
 import {
   siteJumpSound,
   siteDeathSound,
@@ -5,23 +6,23 @@ import {
   siteBackground,
 } from "./soundEffect.js";
 
+// Constants and Variables Initialization
 const enterAlert = document.querySelector("h2");
-// Initialize variables for the game board, dinosaur, cacti, and game parameters
 let board;
-let boardWidth = 900; // Width of the game board
-let boardHeight = 300; // Height of the game board
+let boardWidth = 900;
+let boardHeight = 300;
 export let context;
-// let scoreText = "HI " + dinosaurData.highestScore;
 let currentScore = "Score:";
 let highestScoreText = "Record:";
 let highestScore = 0;
 let maxJumps = 0;
-// Dinosaur properties
-let dinoWidth = 88; // Width of the dinosaur
-let dinoHeight = 94; // Height of the dinosaur
-let dinoX = 50; // Initial X position of the dinosaur
-let dinoY = boardHeight - dinoHeight; // Initial Y position of the dinosaur
-let dinoImg; // Image object for the dinosaur
+
+// Dinosaur Properties
+let dinoWidth = 88;
+let dinoHeight = 94;
+let dinoX = 50;
+let dinoY = boardHeight - dinoHeight;
+let dinoImg;
 export let dino = {
   x: dinoX,
   y: dinoY,
@@ -29,56 +30,49 @@ export let dino = {
   height: dinoHeight,
 };
 
-// Cactus properties
+// Cactus Properties
 let cactusArr = [];
 let cactus1Width = 34;
 let cactus2Width = 69;
 let cactus3Width = 102;
 let cactusHeight = 70;
 let cactusX = 850;
-let cactusY = boardHeight - cactusHeight; // Y position of the cacti
+let cactusY = boardHeight - cactusHeight;
 let cactus1Img;
 let cactus2Img;
 let cactus3Img;
 
 // Game physics
-let velocityX = -8; // Horizontal velocity of the game objects
-let velocityY = 0; // Vertical velocity of the game objects
-let gravity = 0.4; // Gravity effect
+let velocityX = -8;
+let velocityY = 0;
+let gravity = 0.4;
 
 // Game state
-let gameOver = false; // Flag to indicate if the game is over
-let score = 0; // Player's score
-let successfullJumps = 0;
+let gameOver = false;
+let score = 0;
+let successfulJumps = 0;
 let gameOverImg = new Image();
-gameOverImg.src = "./assets/game-over.png"; // Load game assets and start game loop
+gameOverImg.src = "./assets/game-over.png";
 let resetImg = new Image();
 resetImg.src = "./assets/reset.png";
 
+// Window onload function
 window.onload = function () {
-  // Get the game canvas element
   board = document.getElementById("board");
-  // Set the canvas dimensions
   document.addEventListener("keydown", function (event) {
-    // Start the game if Enter key is pressed
     if (event.code === "Enter" && !gameOver) {
-      // Remove the event listener for Enter key press
       enterAlert.style.display = "none";
       document.removeEventListener("keydown", startGame);
-
-      // Start the game
       startGame();
     }
   });
   board.height = boardHeight;
   board.width = boardWidth;
-  // Get the 2D rendering context
   context = board.getContext("2d");
-  //Showing highest score
-  //Adding song
+
+  // Load Dinosaur image
   dinoImg = new Image();
   dinoImg.src = "./assets/dino-stationary.png";
-  // Draw the dinosaur image once loaded
   dinoImg.onload = function () {
     context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
   };
@@ -94,6 +88,7 @@ window.onload = function () {
   cactus3Img.src = "./assets/cactus3.png";
 };
 
+// Update function
 function update() {
   requestAnimationFrame(update);
   if (gameOver) {
@@ -102,17 +97,13 @@ function update() {
     return;
   }
 
-  // Clear the canvas
   context.clearRect(0, 0, board.width, board.height);
 
-  // Apply gravity to the dinosaur
   velocityY += gravity;
   dino.y = Math.min(dino.y + velocityY, dinoY);
 
-  // Draw the dinosaur
   context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
 
-  // Draw and move cacti
   for (let i = 0; i < cactusArr.length; i++) {
     let cactus = cactusArr[i];
     cactus.x += velocityX;
@@ -123,10 +114,9 @@ function update() {
       cactus.width,
       cactus.height
     );
-    // Check for collision with the dinosaur
+
     if (checkCollision(dino, cactus)) {
       gameOver = true;
-      // Change dinosaur image to dead state
       siteDeathSound.play();
       dinoImg.src = "./assets/dino-dead.png";
       dinoImg.onload = function () {
@@ -134,26 +124,30 @@ function update() {
       };
     } else if (cactus.x + cactus.width < dino.x && !cactus.passed) {
       cactus.passed = true;
-      successfullJumps++;
+      successfulJumps++;
     }
   }
 
-  // Display the score
   context.fillStyle = "black";
   context.font = "20px courier";
   score++;
   context.fillText(score, 810, 20);
   context.fillText(currentScore, 730, 20);
   context.fillText(highestScoreText, 550, 20);
-  context.fillText("Jumps: " + successfullJumps, 200, 20);
+  context.fillText("Jumps: " + successfulJumps, 200, 20);
   context.fillText("Record: " + maxJumps, 50, 20);
   if (highestScore < score) {
     highestScore = score;
   }
-  if (maxJumps < successfullJumps) {
-    maxJumps = successfullJumps;
+  if (maxJumps < successfulJumps) {
+    maxJumps = successfulJumps;
   }
   context.fillText(highestScore, 640, 20);
+
+  // Increase speed when score reaches 500
+  if (score >= 500) {
+    velocityX = -10;
+  }
 }
 
 // Function to move the dinosaur
@@ -161,7 +155,6 @@ function moveDino(e) {
   if (gameOver) {
     return;
   }
-  // Move dinosaur upwards when Space or ArrowUp is pressed
   if ((e.code == "Space" || e.code == "ArrowUp") && dino.y == dinoY) {
     velocityY = -10;
   }
@@ -171,11 +164,13 @@ function moveDino(e) {
       dino.x + dino.width > closestCactus.x &&
       dino.x < closestCactus.x + closestCactus.width
     ) {
-      successfullJumps++;
-      context.fillText(successfullJumps, 300, 20);
+      successfulJumps++;
+      context.fillText(successfulJumps, 300, 20);
     }
   }
 }
+
+// Function to play jump sound effect
 function soundEffect(e) {
   if (e.code === "Space" || e.code == "ArrowUp") siteJumpSound.play();
 }
@@ -206,7 +201,6 @@ function placeCactus() {
     cactus.width = cactus1Width;
     cactusArr.push(cactus);
   }
-  // Remove cactus if the array length exceeds 5
   if (cactusArr.length > 5) {
     cactusArr.shift();
   }
@@ -222,6 +216,7 @@ function checkCollision(a, b) {
   );
 }
 
+// Function to handle space key press
 function pressSpace(e) {
   const btnType = e.code;
 
@@ -229,22 +224,20 @@ function pressSpace(e) {
   }
 }
 
+// Initialize function
 function init() {
   document.addEventListener("keydown", pressSpace);
 }
 init();
 
-let gameStarted = false; // Flag to track whether the game has started
+let gameStarted = false;
 
+// Function to start the game
 function startGame() {
   if (!gameStarted) {
-    // Start playing the background music
     siteBackground.play();
-    // Start the game loop
     requestAnimationFrame(update);
-    // Place cacti periodically
     setInterval(placeCactus, 1000);
-    // Listen for key events to control the dinosaur
     document.addEventListener("keydown", moveDino);
     document.addEventListener("keydown", soundEffect);
     board.addEventListener("click", function (event) {
@@ -252,7 +245,6 @@ function startGame() {
       const mouseX = event.clientX - rect.left;
       const mouseY = event.clientY - rect.top;
 
-      // Check if the click intersects with the bounding box of the reset image
       if (
         gameOver &&
         mouseX >= 400 &&
@@ -260,21 +252,21 @@ function startGame() {
         mouseY >= 150 &&
         mouseY <= 150 + resetImg.height
       ) {
-        // Reset the game
         resetGame();
       }
     });
 
-    gameStarted = true; // Update the flag to indicate that the game has started
+    gameStarted = true;
   }
 }
 
+// Function to reset the game
 function resetGame() {
   gameOver = false;
   score = 0;
   dino.y = dinoY;
   dinoImg.src = "./assets/dino-stationary.png";
-  successfullJumps = 0;
+  successfulJumps = 0;
 
   cactusArr = [];
 }
