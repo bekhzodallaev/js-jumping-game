@@ -145,9 +145,9 @@ function update() {
   }
   context.fillText(highestScore, 640, 20);
 
-  // Increase speed when score reaches 500
-  if (score >= 500) {
-    velocityX = -10;
+  if (score >= 0) {
+    velocityX += -0.01;
+    console.log(velocityX);
   }
 }
 
@@ -210,7 +210,6 @@ function placeCactus() {
 // Function to check for collision between two objects
 function checkCollision(a, b) {
   const buffer = 10;
-
   return (
     a.x + a.width - buffer > b.x &&
     a.x + buffer < b.x + b.width &&
