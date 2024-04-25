@@ -209,7 +209,7 @@ function placeCactus() {
 
 // Function to check for collision between two objects
 function checkCollision(a, b) {
-  const buffer = 20;
+  const buffer = 10;
 
   return (
     a.x + a.width - buffer > b.x &&
